@@ -11,7 +11,7 @@ export default function QuickActions() {
 				<Card
 					as={Link}
 					href={item.path}
-					className='w-full min-w-[200px] max-w-[210px]'
+					className='w-full min-w-[200px] max-w-[210px] hover:bg-secondary/15'
 					isPressable
 					key={item.title}
 				>
