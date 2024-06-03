@@ -24,7 +24,7 @@ export default function SideBar() {
 			<Button
 				variant='faded'
 				onClick={swapSideBarHandler}
-				className={`fixed ${swapSidebar ? 'left-16' : 'left-60'} top-14 z-50 h-7 w-7 min-w-0 p-0 transition-all duration-200 ease-in-out`}
+				className={`fixed ${swapSidebar ? 'left-16' : 'left-60'} top-14  h-7 w-7 min-w-0 p-0 transition-all duration-200 ease-in-out`}
 				radius='full'
 				isIconOnly
 			>

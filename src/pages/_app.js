@@ -7,6 +7,7 @@ import Head from 'next/head'
 
 import { appText } from '../locales'
 import ThemeProvider from '../Context/ThemeContext'
+import LoadingProvider from '../Provider/LoadingProvider'
 
 export default function App({ Component, pageProps }) {
 	const getLayout = Component.getLayout ?? ((page) => page)
@@ -19,8 +20,10 @@ export default function App({ Component, pageProps }) {
 			</Head>
 			<ThemeProvider>
 				<NextUIProvider>
-					{getLayout(<Component {...pageProps} />)}
-					<ToastProvider />
+					<LoadingProvider>
+						{getLayout(<Component {...pageProps} />)}
+						<ToastProvider />
+					</LoadingProvider>
 				</NextUIProvider>
 			</ThemeProvider>
 		</>

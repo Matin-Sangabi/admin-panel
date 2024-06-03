@@ -31,7 +31,7 @@ export default function SideBarDropDown({ item }) {
 				<Button
 					isIconOnly
 					variant='light'
-					className={`hover:!bg-secondary/20 !flex h-12 w-full flex-col items-center ${includeDrop(item.children) ? '!bg-secondary/15 text-secondary' : 'text-slate-600'} !py-1`}
+					className={`!flex h-12 w-full flex-col items-center hover:!bg-secondary/20 ${includeDrop(item.children) ? '!bg-secondary/15 text-secondary' : 'text-slate-600'} !py-1`}
 				>
 					<span className='flex items-center justify-center'>
 						<Icon icon={item.icon} width={24} />
@@ -40,6 +40,7 @@ export default function SideBarDropDown({ item }) {
 				</Button>
 			</DropdownTrigger>
 			<DropdownMenu
+				items={item.children}
 				itemClasses={{
 					base: [
 						'rounded-md',
@@ -55,16 +56,16 @@ export default function SideBarDropDown({ item }) {
 				}}
 				aria-label='Static Actions'
 			>
-				{item.children.map((item) => (
+				{(item) => (
 					<DropdownItem
 						startContent={<Icon icon={'tabler:point-filled'} width={12} />}
-						key={item.title}
+						key={item.path}
 						href={item.path}
 						as={Link}
 					>
-						<span>{item.title}</span>
+						{item.title}
 					</DropdownItem>
-				))}
+				)}
 			</DropdownMenu>
 		</Dropdown>
 	)
