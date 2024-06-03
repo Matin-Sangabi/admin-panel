@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Button, Image } from '@nextui-org/react'
 
 import { sideBarRoutes } from '../../constants/routes'
 import SidebarAccordion from './SidebarAccordion'
 import SideBarLink from './SideBarLink'
 import { Icon } from '@iconify/react'
+import useTheme from '../../hooks/useTheme'
+import useThemeDispatch from '../../hooks/useThemeDispatch'
+import actions from '../../constants/actions'
 
 export default function SideBar() {
-	const [swapSidebar, setSwapSidebar] = useState(false)
-
-	useEffect(() => {
-		if (typeof window !== 'undefined') {
-			const sidebar = JSON.parse(window.localStorage.getItem('sidebar'))
-			if (!sidebar) {
-				setSwapSidebar(true)
-			} else {
-				setSwapSidebar(false)
-			}
-		}
-	}, [])
+	const theme = useTheme()
+	const { sideBar: swapSidebar } = theme
+	const dispatch = useThemeDispatch()
 
 	const swapSideBarHandler = () => {
-		setSwapSidebar(!swapSidebar)
-		window.localStorage.setItem('sidebar', JSON.stringify(swapSidebar))
+		dispatch({ type: actions.sidebar })
 	}
 	return (
 		<div
-			className={`border-primary/40 h-full w-full ${swapSidebar ? 'max-w-20' : 'max-w-64'} duration-250 border-r border-dashed px-2 py-2`}
+			className={`h-full w-full border-primary/40 ${swapSidebar ? 'max-w-20' : 'max-w-64'} border-r border-dashed px-2 py-2 duration-250`}
 		>
 			<Button
 				variant='faded'
@@ -36,7 +29,7 @@ export default function SideBar() {
 				isIconOnly
 			>
 				<Icon
-					className={`${swapSidebar ? 'rotate-180' : 'rotate-0'} duration-250 transition-all ease-in-out`}
+					className={`${swapSidebar ? 'rotate-180' : 'rotate-0'} transition-all duration-250 ease-in-out`}
 					icon={'solar:alt-arrow-left-line-duotone'}
 				/>
 			</Button>
