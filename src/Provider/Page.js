@@ -3,9 +3,6 @@ import PropTypes from 'prop-types'
 // next
 import Head from 'next/head'
 import { appText } from '../locales'
-// @mui
-
-// ----------------------------------------------------------------------
 
 const Page = forwardRef(({ children, title = '', meta, ...other }, ref) => (
 	<>
