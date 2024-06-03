@@ -20,6 +20,9 @@ export default function Header() {
 			case routes.main: {
 				return 'Dashboard'
 			}
+			case routes.user.main: {
+				return 'Users Lists'
+			}
 		}
 	}, [])
 
@@ -33,7 +36,7 @@ export default function Header() {
 
 	return (
 		<header className='border-primary/40 flex items-center justify-between border-b border-dashed px-4 py-3'>
-			<div className='text-slate-700 flex items-center gap-x-2 pb-1'>
+			<div className='flex items-center gap-x-2 pb-1 text-slate-700'>
 				<Kbd keys={['command']}>K</Kbd>
 				{getRouter(pathname)}
 			</div>

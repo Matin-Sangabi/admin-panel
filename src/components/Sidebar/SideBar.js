@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Image } from '@nextui-org/react'
 
 import { sideBarRoutes } from '../../constants/routes'
@@ -8,13 +8,29 @@ import { Icon } from '@iconify/react'
 
 export default function SideBar() {
 	const [swapSidebar, setSwapSidebar] = useState(false)
+
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const sidebar = JSON.parse(window.localStorage.getItem('sidebar'))
+			if (!sidebar) {
+				setSwapSidebar(true)
+			} else {
+				setSwapSidebar(false)
+			}
+		}
+	}, [])
+
+	const swapSideBarHandler = () => {
+		setSwapSidebar(!swapSidebar)
+		window.localStorage.setItem('sidebar', JSON.stringify(swapSidebar))
+	}
 	return (
 		<div
-			className={`border-primary/40 h-full w-full ${swapSidebar ? 'max-w-20' : 'max-w-64'} duration-250 border-r border-dashed px-2 py-2 `}
+			className={`border-primary/40 h-full w-full ${swapSidebar ? 'max-w-20' : 'max-w-64'} duration-250 border-r border-dashed px-2 py-2`}
 		>
 			<Button
 				variant='faded'
-				onClick={() => setSwapSidebar(!swapSidebar)}
+				onClick={swapSideBarHandler}
 				className={`fixed ${swapSidebar ? 'left-16' : 'left-60'} top-14 z-50 h-7 w-7 min-w-0 p-0 transition-all duration-200 ease-in-out`}
 				radius='full'
 				isIconOnly
