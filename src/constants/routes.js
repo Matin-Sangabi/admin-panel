@@ -22,3 +22,13 @@ export const sideBarRoutes = [
 		],
 	},
 ]
+
+export const quickItems = [
+	{ title: 'Dashboard', icon: 'solar:widget-4-bold-duotone', path: router.main },
+	{ title: 'Users Lists', icon: 'solar:users-group-two-rounded-bold', path: router.user.main },
+	{
+		title: 'Users Create',
+		icon: 'solar:user-plus-rounded-bold-duotone',
+		path: router.user.create(),
+	},
+]
