@@ -7,22 +7,36 @@ import FormProvider from '../../Provider/FormProvider'
 import { AppInput } from '../../components/Forms'
 import AppPasswordInput from '../../components/Forms/AppPasswordInput'
 import { appText } from '../../locales'
+import { useMutation } from '@tanstack/react-query'
+import { login } from '../../service/auth.service'
+import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 
 export default function Login() {
 	const defaultValues = useMemo(() => ({ email: '', password: '' }), [])
+
+	const router = useRouter()
 
 	const schema = yup.object().shape({
 		email: yup.string().email().required(),
 		password: yup.string().required(),
 	})
 
+	const { isPending, mutateAsync } = useMutation({ mutationFn: login })
+
 	const methods = useForm({ defaultValues, resolver: yupResolver(schema) })
 
 	const { handleSubmit } = methods
 
 	const onSubmit = async (data) => {
-		const formData = { ...data }
-		console.log(formData)
+		try {
+			const res = await mutateAsync(data)
+			Cookies.set('access_token', res?.access, { expires: 1 })
+			Cookies.set('refresh_token', res?.refresh, { expires: 1 })
+			router.push('/auth')
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	return (
@@ -39,7 +53,7 @@ export default function Login() {
 								<AppInput name={'email'} label={'Email'} />
 								<AppPasswordInput name={'password'} label={'Password'} />
 
-								<Button color='primary' type='submit' className=''>
+								<Button isLoading={isPending} color='primary' type='submit' className=''>
 									{appText.login}
 								</Button>
 							</div>

@@ -9,6 +9,7 @@ import { appText } from '../locales'
 import ThemeProvider from '../Context/ThemeContext'
 import LoadingProvider from '../Provider/LoadingProvider'
 import { HydrationBoundary, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import AuthProvider from '../Context/AuthContext'
 
 const queryClient = new QueryClient()
 
@@ -23,6 +24,7 @@ export default function App({ Component, pageProps }) {
 			</Head>
 			<QueryClientProvider client={queryClient}>
 				<HydrationBoundary state={pageProps.dehydratedState}>
+					<AuthProvider>
 					<ThemeProvider>
 						<NextUIProvider>
 							<LoadingProvider>
@@ -31,6 +33,8 @@ export default function App({ Component, pageProps }) {
 							</LoadingProvider>
 						</NextUIProvider>
 					</ThemeProvider>
+					</AuthProvider>
+
 				</HydrationBoundary>
 			</QueryClientProvider>
 		</>
