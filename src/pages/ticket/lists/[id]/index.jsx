@@ -65,6 +65,15 @@ export default function Index() {
 	if (data)
 		return (
 			<AdminLayout>
+				<div className='mx-auto flex w-full max-w-3xl gap-x-2 pb-3'>
+					<Avatar />
+					<div className='mx-auto flex w-full max-w-3xl flex-col'>
+						<span className='text-sm'>
+							{data?.user?.first_name} {data?.user?.last_name}
+						</span>
+						<span className='text-xs text-black/50'>{data?.user?.email} </span>
+					</div>
+				</div>
 				<div className='mx-auto w-full max-w-3xl space-y-6 rounded-xl border border-primary p-3'>
 					<div className='flex w-full items-center justify-between'>
 						<h1 className='font-semibold'>{data?.title}</h1>
@@ -88,7 +97,12 @@ export default function Index() {
 								key={item.id}
 								className={`flex ${item.sender_type === 'user' ? 'flex-row-reverse' : 'flex-row'} gap-x-4`}
 							>
-								<Avatar size='sm' name={item.user}  color={item.sender_type === "user" ? "secondary" : "primary"} className='' />
+								<Avatar
+									size='sm'
+									name={item.user}
+									color={item.sender_type === 'user' ? 'secondary' : 'primary'}
+									className=''
+								/>
 								<div
 									className={`max-w-xs rounded-lg p-2 text-primary ${item.sender_type === 'user' ? 'rounded-tr-none bg-secondary/20' : 'rounded-tl-none bg-primary/10'} mt-4`}
 								>

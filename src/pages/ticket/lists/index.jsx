@@ -1,4 +1,4 @@
-import { Avatar, Button, Divider } from '@nextui-org/react'
+import {  Button, Divider } from '@nextui-org/react'
 import AdminLayout from '../../../container/AdminLayout'
 import { getTicketLists } from '../../../service/ticket.service'
 import { useQuery } from '@tanstack/react-query'
@@ -21,7 +21,7 @@ export default function Page() {
 							key={item.id}
 						>
 							<div className='flex items-center justify-between'>
-								<h1 className='font-semibold'>{item.title}</h1>
+								<h1 className='font-semibold h-10'>{item.title}</h1>
 								<span className='text-xs text-default'>
 									{new Date(item.created_at).toLocaleDateString('en', {
 										year: 'numeric',
@@ -35,9 +35,12 @@ export default function Page() {
 							>
 								Status : {item.status}
 							</div>
-							<div className='flex items-center gap-x-2'>
-								<span>user : </span>
-								<Avatar size='sm' name={`${item.user}`} />
+							<div className='flex  gap-x-2'>
+								<span className='text-lg font-semibold'>user : </span>
+								<div className='flex flex-col'>
+									<span className='text-sm'>{item?.user?.first_name} {item?.user?.last_name}</span>
+									<span className='text-xs text-black/50'>{item?.user?.email} </span>
+								</div>
 							</div>
 								<Divider />
 								<div className='flex items-center justify-center gap-x-3'>
