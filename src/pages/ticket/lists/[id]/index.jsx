@@ -7,11 +7,12 @@ import {
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import React, { useMemo } from 'react'
-import { Avatar, Button, Chip, Divider } from '@nextui-org/react'
+import { Avatar, Button, Chip, Divider, Image } from '@nextui-org/react'
 import { useForm } from 'react-hook-form'
 import FormProvider from '../../../../Provider/FormProvider'
 
 import AppTextArea from '../../../../components/Forms/AppTextArea'
+import Link from 'next/link'
 
 export default function Index() {
 	const { query } = useRouter()
@@ -106,7 +107,43 @@ export default function Index() {
 								<div
 									className={`max-w-xs rounded-lg p-2 text-primary ${item.sender_type === 'user' ? 'rounded-tr-none bg-secondary/20' : 'rounded-tl-none bg-primary/10'} mt-4`}
 								>
-									{item.content}
+									<div className='flex w-full flex-col gap-y-3'>
+										{item.files.length > 0 ? (
+											<div className='flex w-full flex-wrap items-center gap-x-4'>
+												{item.files.map((image, index) => (
+													<div
+														key={index}
+														className='flex w-full flex-col items-center justify-between'
+													>
+														<div className='h-[120px] w-[200px]'>
+															<Image
+																radius='none'
+																src={image?.file}
+																alt='test'
+																className='h-[120px] w-[200px] object-cover'
+															/>
+														</div>
+														<>
+															{' '}
+															<Link
+																href={image.file}
+																target='_blank'
+																className='mt-2 text-xs font-semibold text-primary'
+															>
+																Attachment
+															</Link>
+														</>
+													</div>
+												))}
+											</div>
+										) : (
+											<p>{item.content}</p>
+										)}
+
+										<span className='flex w-full items-center justify-end px-4 text-xs'>
+											{item.created_at}
+										</span>
+									</div>
 								</div>
 							</div>
 						))}
